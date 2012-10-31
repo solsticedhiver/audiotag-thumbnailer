@@ -2,21 +2,25 @@
 
 pkgname=audiotag-thumbnailer
 pkgver=0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A nautilus thumbnailer for MP3 and OGG file"
+PASTEBIN_ID="E4qCRucH"
+
 arch=('any')
-url=""
+url="https://bbs.archlinux.org/viewtopic.php?id=114098"
 license=("custom:WTFPL")
-depends=('mutagen')
-install=audiotag-thumbnailer.install
-source=('audiotag-thumbnailer' 'audiotag-thumbnailer.schemas')
-md5sums=('9c4bbee469176ec3bd4f6e4ab7e886b1'
-         '15d1745b817a70515d16586852598315')
+depends=('mutagen' 'python2')
+source=("audiotag-thumbnailer"
+        'audiotag.thumbnailer')
+md5sums=('d18561afaee9343ffdf30314026b33ee'
+         'ec9fe64b57122c09522a5e38fb5783d9')
 
 build() {
 	cd $srcdir
-	mkdir -p $pkgdir/usr/{share/gconf/schemas,bin}
-	install -m644 audiotag-thumbnailer.schemas $pkgdir/usr/share/gconf/schemas
-	install -m755 audiotag-thumbnailer $pkgdir/usr/bin
 }
 
+package() {
+	mkdir -p $pkgdir/usr/{share/thumbnailers,bin}
+	install -m644 audiotag.thumbnailer $pkgdir/usr/share/thumbnailers
+	install -m755 audiotag-thumbnailer $pkgdir/usr/bin
+}
